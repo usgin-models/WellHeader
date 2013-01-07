@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:aasg="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/wellheader/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:gmlsf="http://www.opengis.net/gmlsf" targetNamespace="http://stategeothermaldata.org/uri-gin/aasg/xmlschema/wellheader/1.5" elementFormDefault="qualified" version="1.00">
+	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
+	<xs:annotation>
+		<!-- This XSD document, including XML schema, indicates the content requested for AASG geothermal data interoperable web services for description of basic well header data, either for a simple well (one wellbore), complex well (multiple wellbores), or a single well bore in a complex well. In the geothermal data system, well header features are one of the sampling feature services that are used as a delivery method to discover resources derived from boreholes with particular characteristics. Each borehole should have a unique HeaderURI.-->
+		<!--This XSD document was created on 2012-03-05 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the wellheader datasets originating from CADOGGR and AZGS. -->
+		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
+			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
+			<gmlsf:GMLProfileSchema>
+http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gmlsf:GMLProfileSchema>
+		</xs:appinfo>
+	</xs:annotation>
+	<xs:element name="Wellheader" type="aasg:WellheaderType" substitutionGroup="gml:_Feature"/>
+	<xs:complexType name="WellheaderType">
+		<xs:complexContent>
+			<xs:extension base="gml:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="HeaderURI">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="WellName" type="xs:string" minOccurs="0"/>
+					<xs:element name="APINo" type="xs:string" minOccurs="0"/>
+					<xs:element name="Label" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherName" type="xs:string" minOccurs="0"/>
+					<xs:element name="BoreholeName" type="xs:string" minOccurs="0"/>
+					<xs:element name="ParentWellURI" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Operator" type="xs:string" minOccurs="0"/>
+					<xs:element name="MineralOwner" type="xs:string" minOccurs="0"/>
+					<xs:element name="Driller" type="xs:string" minOccurs="0"/>
+					<xs:element name="LeaseName" type="xs:string" minOccurs="0"/>
+					<xs:element name="SpudDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="EndedDrillingDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="DrillingMethod" type="xs:string" minOccurs="0"/>
+					<xs:element name="WellType" type="xs:string" minOccurs="0"/>
+					<xs:element name="Status" type="xs:string" minOccurs="0"/>
+					<xs:element name="CommodityOfInterest" type="xs:string" minOccurs="0"/>
+					<xs:element name="StatusDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="Function" type="xs:string" minOccurs="0"/>
+					<xs:element name="Production" type="xs:string" minOccurs="0"/>
+					<xs:element name="ProducingInterval" type="xs:string" minOccurs="0"/>
+					<xs:element name="ReleaseDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="County" type="xs:string" minOccurs="0"/>
+					<xs:element name="State" type="xs:string"/>
+					<xs:element name="Field" type="xs:string" minOccurs="0"/>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
+					<xs:element name="PLSS_Meridians" type="xs:string" minOccurs="0"/>
+					<xs:element name="TWP" type="xs:string" minOccurs="0"/>
+					<xs:element name="RGE" type="xs:string" minOccurs="0"/>
+					<xs:element name="Section_" type="xs:string" minOccurs="0"/>
+					<xs:element name="SectionPart" type="xs:string" minOccurs="0"/>
+					<xs:element name="Parcel" type="xs:string" minOccurs="0"/>
+					<xs:element name="UTM_E" type="xs:double" minOccurs="0"/>
+					<xs:element name="UTM_N" type="xs:double" minOccurs="0"/>
+					<xs:element name="UTMDatumZone" type="xs:string" minOccurs="0"/>
+					<xs:element name="LatDegree" type="xs:double"/>
+					<xs:element name="LongDegree" type="xs:double"/>
+					<xs:element name="SRS" type="xs:string"/>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
+					<xs:element name="LocationUncertaintyCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="LocationUncertaintyRadius" type="xs:double" minOccurs="0"/>
+					<xs:element name="DrillerTotalDepth" type="xs:double" minOccurs="0"/>
+					<xs:element name="DepthReferencePoint" type="xs:string" minOccurs="0"/>
+					<xs:element name="LengthUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="WellBoreShape" type="xs:string" minOccurs="0"/>
+					<xs:element name="TrueVerticalDepth" type="xs:double" minOccurs="0"/>
+					<xs:element name="ElevationKB" type="xs:double" minOccurs="0"/>
+					<xs:element name="ElevationDF" type="xs:string" minOccurs="0"/>
+					<xs:element name="ElevationGL" type="xs:double" minOccurs="0"/>
+					<xs:element name="FormationTD" type="xs:string" minOccurs="0"/>
+					<xs:element name="BitDiameterCollar" type="xs:string" minOccurs="0"/>
+					<xs:element name="BitDiameterTD" type="xs:double" minOccurs="0"/>
+					<xs:element name="DiameterUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="RelatedResource" type="xs:string" minOccurs="0"/>
+					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
+					<xs:element name="CasingLogger" type="xs:string" minOccurs="0"/>
+					<xs:element name="CasingBottomDepthDriller" type="xs:double" minOccurs="0"/>
+					<xs:element name="CasingTopDepth" type="xs:double" minOccurs="0"/>
+					<xs:element name="CasingPipeDiameter" type="xs:string" minOccurs="0"/>
+					<xs:element name="CasingWeight" type="xs:double" minOccurs="0"/>
+					<xs:element name="CasingWeightUnits" type="xs:string" minOccurs="0"/>
+					<xs:element name="CasingThickness" type="xs:string" minOccurs="0"/>
+					<xs:element name="InformationSource" type="xs:string"/>
+					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
