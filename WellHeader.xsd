@@ -77,10 +77,10 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="WellBoreShape" type="xs:string" minOccurs="0"/>
 					<xs:element name="TrueVerticalDepth" type="xs:double" minOccurs="0"/>
 					<xs:element name="ElevationKB" type="xs:double" minOccurs="0"/>
-					<xs:element name="ElevationDF" type="xs:string" minOccurs="0"/>
+					<xs:element name="ElevationDF" type="xs:double" minOccurs="0"/>
 					<xs:element name="ElevationGL" type="xs:double" minOccurs="0"/>
 					<xs:element name="FormationTD" type="xs:string" minOccurs="0"/>
-					<xs:element name="BitDiameterCollar" type="xs:string" minOccurs="0"/>
+					<xs:element name="BitDiameterCollar" type="xs:double" minOccurs="0"/>
 					<xs:element name="BitDiameterTD" type="xs:double" minOccurs="0"/>
 					<xs:element name="DiameterUnits" type="xs:string" minOccurs="0"/>
 					<xs:element name="RelatedResource" type="xs:string" minOccurs="0"/>
@@ -91,7 +91,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="CasingPipeDiameter" type="xs:string" minOccurs="0"/>
 					<xs:element name="CasingWeight" type="xs:double" minOccurs="0"/>
 					<xs:element name="CasingWeightUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingThickness" type="xs:string" minOccurs="0"/>
+					<xs:element name="CasingThickness" type="xs:double" minOccurs="0"/>
 					<xs:element name="InformationSource" type="xs:string"/>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
