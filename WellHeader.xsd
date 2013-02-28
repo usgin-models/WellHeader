@@ -91,7 +91,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 					<xs:element name="CasingPipeDiameter" type="xs:string" minOccurs="0"/>
 					<xs:element name="CasingWeight" type="xs:double" minOccurs="0"/>
 					<xs:element name="CasingWeightUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingThickness" type="xs:double" minOccurs="0"/>
+					<xs:element name="CasingThickness" type="xs:string" minOccurs="0"/>
 					<xs:element name="InformationSource" type="xs:string"/>
 					<xs:element name="Shape" type="gml:PointPropertyType"/>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
