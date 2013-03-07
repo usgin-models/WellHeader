@@ -1,0 +1,5 @@
+This repository contains document artifacts for an inforamtion exchange for Well Header observations. The artifacts include an Excel Workbook that defines and documents the content model, and an XML schema that implements the model.
+
+The Well Header URI for a particular well is the cross-referencing link (foreign key) used to associate the well record, temperature measurements, chemistry and other information from a particular well. Each entry is for one well borehole. Multiple observations (such as: temperature observations, chemical analyses) from the same well would be entered on separate, appropriate spreadsheets/templates. If these separate observations exist, there should be a link to them entered on the Well Header template, entered under Related Resources. 
+
+Deployed services use the approved 1.5 schema. A 1.7 schema was suggested at GDSDPWG, but never implemented. Comments from that version were integrated into the 1.5 version, which still validates with previously deployed services. 2013-03-07
