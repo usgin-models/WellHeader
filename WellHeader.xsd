@@ -3,8 +3,8 @@
 	<xs:import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/3.1.1/base/gml.xsd"/>
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
-		<!-- This XSD document, including XML schema, indicates the content requested for AASG geothermal data interoperable web services for description of basic well header data, either for a simple well (one wellbore), complex well (multiple wellbores), or a single well bore in a complex well. In the geothermal data system, well header features are one of the sampling feature services that are used as a delivery method to discover resources derived from boreholes with particular characteristics. Each borehole should have a unique HeaderURI.-->
-		<!--This XSD document was created on 2012-03-05 by Celia Coleman, AZGS.  This schema is based on the data available in the AASG Web Feature Services created for the wellheader datasets originating from CADOGGR and AZGS. -->
+		<!--This XSD document, including XML schema, indicates the content requested for AASG geothermal data interoperable web services for description of basic well header data, either for a simple well (one wellbore), complex well (multiple wellbores), or a single well bore in a complex well. In the geothermal data system, well header features are one of the sampling feature services that are used as a delivery method to discover resources derived from boreholes with particular characteristics. Each borehole should have a unique HeaderURI.-->
+		<!--Annotated version 1.5.1. Annotated version 1.2.1. This XSD document was created on 2012-03-05 by Celia Coleman, AZGS. This schema is based on the data available in the AASG Web Feature Services created for the wellheader datasets originating from CADOGGR and AZGS. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS.-->
 		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
 			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
 			<gmlsf:GMLProfileSchema>
@@ -16,84 +16,348 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 		<xs:complexContent>
 			<xs:extension base="gml:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="OBJECTID" type="xs:int" minOccurs="0"/>
+					<xs:element name="OBJECTID" type="xs:int" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Integer record count, added by ArcGIS servers during service deployment; not required but cannot be removed when deploying from ArcGIS feature class. Not user maintained, so this element appears in XML implementation but not in the Content Model Template.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="HeaderURI">
+						<xs:annotation>
+							<xs:documentation>Unique identifier for this observation. This is the identifier (Uniform Resource Identifier) that will be used to cross-reference data, samples, and other observations to the observation represented by this record. Best practice is to define an http URI that will dereference to a normative description of the observation. USGIN URI's may be redirected to any URL using the http://resources.usgin.org redirector; contact the USGIN development team at AZGS for instructions.
+
+							If the API number indicates multiple instances of reentry, recompletion, sidetrack, etc., each instance is to have its own HeaderURI.  For example, the API number 42-501-20130-0300 indicates a well (42-501-20130) with three sidetracks, for a total of four total boreholes (-0000,-0100, -0200,-0300), each of which should have its own database record and HeaderURI.</xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="WellName" type="xs:string" minOccurs="0"/>
-					<xs:element name="APINo" type="xs:string" minOccurs="0"/>
-					<xs:element name="Label" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherID" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherName" type="xs:string" minOccurs="0"/>
-					<xs:element name="BoreholeName" type="xs:string" minOccurs="0"/>
+					<xs:element name="WellName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Human-intelligible name by which the feature  is known. Convention for wellName is: Name = Operator + Well No. + Lease Owner. A well may consist of multiple boreholes (wellbores). If these are distinguished by different records in this table, they should have the same well names, but distinct BoreholeNames, and at least one identifier (APINo or OtherID) that is unique to the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="APINo" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>API number for the the wellbore/borehole identified by the HeaderURI. If an API number is unavailable this field is empty. Usage of hyphens is optional, according to standard practice in each state. API number refers to the American Petroleum Institute number. Each oil, gas, or geothermal well drilled in the United States has a unique API number; this number identifies all boreholes or recompletions associated with the original wellbore. See http://www.spwla.org/technical/api-technical for more information about API numbering.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Label" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Short text string for labeling the feature on maps. Can be the same as feature name. A label may be an OtherLocationName, OtherID or the Name or some combination.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherID" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Alternative identifier(s) for the feature. Indicate the authority from which the OtherID is derived with a short (lower case) prefix delimited by a colon ':' If identifiers from multiple different authorities are available, delimit these identifiers with the pipe '|' character. For example, if a well were known to the Arizona Geological Survey (AZGS) by the id number 1337, the prefix would be azgs: and the identifier string would be azgs:1337. Any such prefixes used to scope identifiers should be explained in the dataset metadata.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Other human-intelligible labels for feature such as secondary name or common name, other spellings. Indicate the authority from which the OtherName is derived with a short (lower case) prefix delimited by a colon ':' If identifiers from multiple different authorities are available, delimit these identifiers with the pipe character '|'. For example, if a well were known to the Arizona Geological Survey (AZGS) by the id number 1337, the identifier string would be azgs:1337. Any such prefixes used to scope identifiers should be explained in the dataset metadata.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BoreholeName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Human-intelligible name by which the borehole is known. Convention for wellName is: Name = Operator + Well No. + Lease Owner. A well may consist of multiple boreholes (wellbores). If these are distinguished by different records in this table, they should have the same well names, but distinct BoreholeNames, and at least one identifier (APINo or OtherID) that is unique to the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="ParentWellURI" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The unique identifier for the well that contains the wellbore identified by WellBoreURI.   If the WellBoreURI identifies one of several wellbores within a well, this element is mandatory. Best practice is to define an http URI that will dereference to a normative description of the well. </xs:documentation>
+						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:string">
 								<xs:maxLength value="255"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="Operator" type="xs:string" minOccurs="0"/>
-					<xs:element name="MineralOwner" type="xs:string" minOccurs="0"/>
-					<xs:element name="Driller" type="xs:string" minOccurs="0"/>
-					<xs:element name="LeaseName" type="xs:string" minOccurs="0"/>
-					<xs:element name="SpudDate" type="xs:string" minOccurs="0"/>
-					<xs:element name="EndedDrillingDate" type="xs:string" minOccurs="0"/>
-					<xs:element name="DrillingMethod" type="xs:string" minOccurs="0"/>
-					<xs:element name="WellType" type="xs:string" minOccurs="0"/>
-					<xs:element name="Status" type="xs:string" minOccurs="0"/>
-					<xs:element name="CommodityOfInterest" type="xs:string" minOccurs="0"/>
-					<xs:element name="StatusDate" type="xs:string" minOccurs="0"/>
-					<xs:element name="Function" type="xs:string" minOccurs="0"/>
-					<xs:element name="Production" type="xs:string" minOccurs="0"/>
-					<xs:element name="ProducingInterval" type="xs:string" minOccurs="0"/>
-					<xs:element name="ReleaseDate" type="xs:string" minOccurs="0"/>
-					<xs:element name="County" type="xs:string" minOccurs="0"/>
-					<xs:element name="State" type="xs:string"/>
-					<xs:element name="Field" type="xs:string" minOccurs="0"/>
-					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0"/>
-					<xs:element name="PLSS_Meridians" type="xs:string" minOccurs="0"/>
-					<xs:element name="TWP" type="xs:string" minOccurs="0"/>
-					<xs:element name="RGE" type="xs:string" minOccurs="0"/>
-					<xs:element name="Section_" type="xs:string" minOccurs="0"/>
-					<xs:element name="SectionPart" type="xs:string" minOccurs="0"/>
-					<xs:element name="Parcel" type="xs:string" minOccurs="0"/>
-					<xs:element name="UTM_E" type="xs:double" minOccurs="0"/>
-					<xs:element name="UTM_N" type="xs:double" minOccurs="0"/>
-					<xs:element name="UTMDatumZone" type="xs:string" minOccurs="0"/>
-					<xs:element name="LatDegree" type="xs:double"/>
-					<xs:element name="LongDegree" type="xs:double"/>
-					<xs:element name="SRS" type="xs:string"/>
-					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0"/>
-					<xs:element name="LocationUncertaintyCode" type="xs:string" minOccurs="0"/>
-					<xs:element name="LocationUncertaintyRadius" type="xs:double" minOccurs="0"/>
-					<xs:element name="DrillerTotalDepth" type="xs:double" minOccurs="0"/>
-					<xs:element name="DepthReferencePoint" type="xs:string" minOccurs="0"/>
-					<xs:element name="LengthUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="WellBoreShape" type="xs:string" minOccurs="0"/>
-					<xs:element name="TrueVerticalDepth" type="xs:double" minOccurs="0"/>
-					<xs:element name="ElevationKB" type="xs:double" minOccurs="0"/>
-					<xs:element name="ElevationDF" type="xs:double" minOccurs="0"/>
-					<xs:element name="ElevationGL" type="xs:double" minOccurs="0"/>
-					<xs:element name="FormationTD" type="xs:string" minOccurs="0"/>
-					<xs:element name="BitDiameterCollar" type="xs:double" minOccurs="0"/>
-					<xs:element name="BitDiameterTD" type="xs:double" minOccurs="0"/>
-					<xs:element name="DiameterUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="RelatedResource" type="xs:string" minOccurs="0"/>
-					<xs:element name="Notes" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingLogger" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingBottomDepthDriller" type="xs:double" minOccurs="0"/>
-					<xs:element name="CasingTopDepth" type="xs:double" minOccurs="0"/>
-					<xs:element name="CasingPipeDiameter" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingWeight" type="xs:double" minOccurs="0"/>
-					<xs:element name="CasingWeightUnits" type="xs:string" minOccurs="0"/>
-					<xs:element name="CasingThickness" type="xs:string" minOccurs="0"/>
-					<xs:element name="InformationSource" type="xs:string"/>
-					<xs:element name="Shape" type="gml:PointPropertyType"/>
+					<xs:element name="Operator" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of company/organization that is operating the well during the reporting period.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="MineralOwner" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of owner of mineral rights for the property that contains the borehole identified by the HeaderURI.  </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Driller" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of contracting company that drilled the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LeaseName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name or number of the lease of the borehole. Formatting and punctuation are not proscribed, but should be consistent within a dataset.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SpudDate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date on which drilling of the well bore began. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EndedDrillingDate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date on which drilling of the well bore ended.  Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DrillingMethod" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Basic drilling technology used in the creation of the borehole identified by the HeaderURI. See Data Valid Terms tab. It is possible to use multiple different drilling methods and technologies per borehole. Delimit multiple drilling methods with the '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WellType" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Type of well that contains the borehole, at the time indicated in the StatusDate element.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Status" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Status of the borehole at the time indicated in the StatusDate element. If unknown enter "unknown" in the field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CommodityOfInterest" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The commodity of interest associated with the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="StatusDate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The status of the feature can change from time to time, thus it is useful to know the date on which a given status was reported. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Function" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Functional characterization of the borehole, at the time indicated in the StatusDate element.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Production" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Term indicating the production results of the borehole, at the time indicated in the StatusDate element.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ProducingInterval" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of producing interval or intervals in well; separate multiple interval names by pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReleaseDate" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Date on which data for the borehole was or will be made public. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="County" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Required. County name. If unknown or not applicable use 'missing'. If offshore, specify 'offshore' in this field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="State" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Required. State name without abbreviations. If unknown or not applicable use 'missing'. For offshore locations, specify the governing or nearest state and list the county as 'offshore'.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Field" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of the field in which the borehole is located. If multiple names are or have been used for the field, separate values with a pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="OtherLocationName" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Names of geographic features associated with the site that will be useful as search criteria to locate the information for this site. Separate multiple keywords with the pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PLSS_Meridians" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>List north-south baseline and east-west meridian that Townships and Ranges are referenced to.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TWP" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Township in PLSS grid, relative to reported baseline. Formatting and punctuation should be consistent for all locations referenced to the same baseline and meridian. Recommend adding leading '0's so that all number strings are the same length (typically 2 or occasionally 3 digits). Examples 01N, 112S, 001N.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RGE" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Range in PLSS grid, relative to reported meridian. Formatting and punctuation should be consistent for all locations referenced to the same baseline meridian. See instructions on TWP field.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Section_" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>PLSS section number. Must be numeric or null. Some surveys include half sections indicated by a 'nn.5' designation, where n indicates a number.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SectionPart" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Subdivision of a PLSS section.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Parcel" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Legal parcel identifier, or block number, or other parcel or location identifier.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UTM_E" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>UTM easting coordinate as decimal number.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UTM_N" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>UTM northing coordinate as decimal number.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="UTMDatumZone" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The datum and UTM zone for the reported coordinates. Datum for most locations should be NAD27 or NAD83.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LatDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Latitude coordinate for the surface location of the feature (use center point for areas); values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LongDegree" type="xs:double">
+						<xs:annotation>
+							<xs:documentation>Longitude coordinate for the surface location of the feature (use center point for areas); values should be provided with at least 4 significant digits for sufficient precision (7 decimal places is recommended by the USGS (OFR 02-463, p. 6). Use decimal degrees.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SRS" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The spatial reference system. It is recommended that an EPSG code be used to identify the SRS used to specify the location.  If an EPSG code is used, identify it as such with the prefix 'EPSG:' For common EPSG codes, see the Data Valid Terms tab. EPSG:4326 is the identifier for WGS84, and should be the text in this field. EPSG stands for European Petroleum Survey Group. EPSSG codes can be dereferenced by putting the code in this URL (replace 4326) http://spatialreference.org/ref/epsg/4326/.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyStatement" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Information on how the original location was determined, e.g.: 1:250,000 map, gps unit, Google Earth, PLSS Conversion, Spatial Datum Conversion, e.g., NAD27 to WGS84.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyCode" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>A controlled vocabulary term or code value specifying the location confidence, e.g. 1 = reported, 2= surveyed, 3= GPS. If such a code list or vocabulary is used, it must be added to the 'Data Valid Terms' sheet to enumerate the possible values and their meaning.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LocationUncertaintyRadius" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Radius in meters) of circle of confidence for location. Ideally might represent some specific confidence criteria like 'radius of circle around reported location which which true location lies with 95% confidence', but such precision is rarely available.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DrillerTotalDepth" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Length of borehole, from borehole origin to bottom of borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DepthReferencePoint" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Identifier for elevation datum to which other elevations are referred. Default shall be sea level (MSL) in decimal format.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LengthUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Units used to report all elevation and depth information, decimal meters or feet.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WellBoreShape" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Term used to indicate the overall shape of the borehole identified by the HeaderURI, e.g. vertical, inclined down, curved, horizontal, inclined up, unknown.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TrueVerticalDepth" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Vertical distance from bottom hole point to elevation of borehole origin.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ElevationKB" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Elevation at kelly bushing for the borehole. 3 decimal places is recommended by the USGS (OFR 02-463, p.6). Elevations should be reported relative to mean sea level (MSL).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ElevationDF" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Elevation at drilling floor for the wellbore. 3 decimal places is recommended by the USGS (OFR 02-463, p.6). Elevations should be reported relative to mean sea level (MSL).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ElevationGL" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Elevation of borehole at ground level. 3 decimal places is recommended by the USGS (OFR 02-463, p.6). Elevations should be reported relative to mean sea level (MSL).</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="FormationTD" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Name of geologic unit at the bottom of the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BitDiameterCollar" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Bit diameter at the origin of the borehole, reported in decimal format.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BitDiameterTD" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Bit diameter at the bottom of the borehole, reported in decimal format.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DiameterUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Units of length used to specify diameters in this record. Inches or centimeters, in decimal units.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RelatedResource" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>This may be one to many http links to resources (logs, pictures or other documents if available online. Should be an http:// address (URL)) related to the observation described in each record. Delimit multiple values with the pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Notes" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Any additional information to be provided, including description and other data not captured by the template, details about collection method, contact information for related parties (original collector, project PI), collection platform or Launch, etc.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingLogger" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>The deepest cased depth in the borehole encountered during the log run.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingBottomDepthDriller" type="xs:double" minOccurs="0">
+					<xs:annotation>
+							<xs:documentation>Bottom of cased interval of the borehole as  reported by the driller.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingTopDepth" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Top of cased interval of the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingPipeDiameter" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Internal (ID) or external diameter (ED) should be noted. Units must be same as those used to report bit diameter (Diameter units column). Note that if there are different casing types over different intervals in the well bore, these should be noted in tuples delimited by the pipe character '|' as follows: {top-bottom1, diameter1, xD1 | top-bottom2, diameter2, xD2}.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingWeight" type="xs:double" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Casing pipe weight per length installed in the borehole.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingWeightUnits" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Units for the reported Casing Weight: kg/m OR lbs/ft.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CasingThickness" type="xs:string" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Thickness Casing pipe installed in the borehole. Units must be same as diameter units specified in this record. If multiple pipe thicknesses used, these should be separated by the pipe character '|'. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="InformationSource" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Mandatory. Short text explanation of source of information defining this feature; may be author-date type citation, but should include some indication of how digital data originated. If unpublished data, provide researcher name, date and research institution for proper citation. Separate multiple citations with pipe '|' character.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Shape" type="gml:PointPropertyType">
+						<xs:annotation>
+							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
+						</xs:annotation>
+						</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
