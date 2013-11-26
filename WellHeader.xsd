@@ -4,7 +4,7 @@
 	<xs:import namespace="http://www.opengis.net/gmlsf" schemaLocation="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd"/>
 	<xs:annotation>
 		<!--This XSD document, including XML schema, indicates the content requested for AASG geothermal data interoperable web services for description of basic well header data, either for a simple well (one wellbore), complex well (multiple wellbores), or a single well bore in a complex well. In the geothermal data system, well header features are one of the sampling feature services that are used as a delivery method to discover resources derived from boreholes with particular characteristics. Each borehole should have a unique HeaderURI.-->
-		<!--Annotated version 1.5.1. Annotated version 1.2.1. This XSD document was created on 2012-03-05 by Celia Coleman, AZGS. This schema is based on the data available in the AASG Web Feature Services created for the wellheader datasets originating from CADOGGR and AZGS. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS.-->
+		<!--Version 1.5.2 changed date type to 'dateTime'. Annotated version 1.5.1. Annotated version 1.2.1. This XSD document was created on 2012-03-05 by Celia Coleman, AZGS. This schema is based on the data available in the AASG Web Feature Services created for the wellheader datasets originating from CADOGGR and AZGS. Field Description annotations standardized 2013-08-22 by Esty Pape, AZGS.-->
 		<xs:appinfo source="http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsfLevels.xsd">
 			<gmlsf:ComplianceLevel>0</gmlsf:ComplianceLevel>
 			<gmlsf:GMLProfileSchema>
@@ -93,12 +93,12 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Name or number of the lease of the borehole. Formatting and punctuation are not proscribed, but should be consistent within a dataset.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="SpudDate" type="xs:string" minOccurs="0">
+					<xs:element name="SpudDate" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Date on which drilling of the well bore began. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="EndedDrillingDate" type="xs:string" minOccurs="0">
+					<xs:element name="EndedDrillingDate" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Date on which drilling of the well bore ended.  Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid</xs:documentation>
 						</xs:annotation>
@@ -123,7 +123,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>The commodity of interest associated with the borehole.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="StatusDate" type="xs:string" minOccurs="0">
+					<xs:element name="StatusDate" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>The status of the feature can change from time to time, thus it is useful to know the date on which a given status was reported. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1', (or '1/1/', or '1-1-', or 'January 1,'). All dates will be converted to yyyy-mm-ddThh:mm.</xs:documentation>
 						</xs:annotation>
@@ -143,7 +143,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 							<xs:documentation>Name of producing interval or intervals in well; separate multiple interval names by pipe '|' character.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ReleaseDate" type="xs:string" minOccurs="0">
+					<xs:element name="ReleaseDate" type="xs:dateTime" minOccurs="0">
 						<xs:annotation>
 							<xs:documentation>Date on which data for the borehole was or will be made public. Day, month and year must be specified; Excel will display using ISO 8601 date and time (yyyy-mm-ddT:hh:mm) format. If only the year is known, enter month and day as 'Jan. 1'. If year is unknown, enter 1900. All dates will be converted to yyyy-mm-ddThh:mm. This is intended as a searching aid.</xs:documentation>
 						</xs:annotation>
@@ -319,7 +319,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="CasingBottomDepthDriller" type="xs:double" minOccurs="0">
-					<xs:annotation>
+						<xs:annotation>
 							<xs:documentation>Bottom of cased interval of the borehole as  reported by the driller.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
@@ -357,7 +357,7 @@ http://schemas.opengis.net/gml/3.1.1/profiles/gmlsfProfile/1.0.0/gmlsf.xsd </gml
 						<xs:annotation>
 							<xs:documentation>Added by GIS for WFS service; this element appears in the xml output, but is generated during service deployment from the latitude and longitude, therefore it doesn't appear in the template.</xs:documentation>
 						</xs:annotation>
-						</xs:element>
+					</xs:element>
 					<xs:any processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:extension>
